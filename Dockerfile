@@ -7,7 +7,7 @@ RUN pip install --upgrade pip && \
 
 # Grab OMF
 RUN git clone https://github.com/dpinney/omf.git
-RUN python omf/install.py
+RUN cd omf && sudo python install.py
 
 # create user with a home directory
 ARG NB_USER
