@@ -1,6 +1,7 @@
 FROM ubuntu:16.04
 # install the notebook package
-RUN pip install --no-cache --upgrade pip && \
+RUN apt-get -y update && apt-get install -y python sudo
+RUN pip install --upgrade pip && \
     pip install --no-cache notebook
 
 # create user with a home directory
