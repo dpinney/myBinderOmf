@@ -17,9 +17,6 @@ RUN adduser --disabled-password \
 WORKDIR ${HOME}
 USER ${USER}
 
-# hack to get matplotlib working
-RUN pip install --user matplotlib==2.1.2
-
 # move stuff so it's in the homedir
 COPY main.ipynb ${HOME}
 COPY README.md ${HOME}
@@ -29,3 +26,6 @@ USER root
 RUN cd ${HOME}
 RUN git clone https://github.com/dpinney/omf.git
 RUN cd omf && python install.py
+
+# hack to get matplotlib working
+RUN pip install --user matplotlib==2.1.2
