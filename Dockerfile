@@ -5,6 +5,11 @@ RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && python get-pi
 RUN pip install --upgrade pip && \
     pip install --no-cache notebook
 
+# sudo hackery
+USER root
+ADD /sudoers.txt /etc/sudoers
+RUN chmod 440 /etc/sudoers
+
 # default user stuff for mybinder.org
 ARG NB_USER
 ARG NB_UID
@@ -24,4 +29,4 @@ COPY README.md ${HOME}
 # Grab OMF
 RUN cd ${HOME}
 RUN git clone https://github.com/dpinney/omf.git
-RUN cd omf && sudo python install.py
+RUN cd omf && python install.py
