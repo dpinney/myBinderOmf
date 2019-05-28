@@ -1,4 +1,4 @@
-FROM python:3.7-slim
+FROM ubuntu:16.04
 # install the notebook package
 RUN pip install --no-cache --upgrade pip && \
     pip install --no-cache notebook
