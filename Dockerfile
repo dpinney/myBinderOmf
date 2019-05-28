@@ -1,21 +1,15 @@
+# Base system stuff
 FROM ubuntu:16.04
-# install the notebook package
 RUN apt-get -y update && apt-get install -y python sudo curl git
 RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && python get-pip.py
 RUN pip install --upgrade pip && \
     pip install --no-cache notebook
 
-# Grab OMF
-RUN git clone https://github.com/dpinney/omf.git
-RUN cd omf && sudo python install.py
-
-# create user with a home directory
+# default user stuff for mybinder.org
 ARG NB_USER
 ARG NB_UID
 ENV USER ${NB_USER}
 ENV HOME /home/${NB_USER}
-
-# other default user stuff for mybinder.org
 RUN adduser --disabled-password \
     --gecos "Default user" \
     --uid ${NB_UID} \
@@ -23,6 +17,11 @@ RUN adduser --disabled-password \
 WORKDIR ${HOME}
 USER ${USER}
 
-# move stuff
+# move stuff so it's in the homedir
 COPY main.ipynb ${HOME}
 COPY README.md ${HOME}
+
+# Grab OMF
+RUN cd ${HOME}
+RUN git clone https://github.com/dpinney/omf.git
+RUN cd omf && sudo python install.py
