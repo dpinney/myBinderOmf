@@ -28,4 +28,4 @@ RUN git clone https://github.com/dpinney/omf.git
 RUN cd omf && python install.py
 
 # hack to get matplotlib working
-RUN pip install --user matplotlib==2.1.2
+RUN pip install matplotlib==2.1.2
