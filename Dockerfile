@@ -1,9 +1,12 @@
 FROM ubuntu:16.04
 # install the notebook package
-RUN apt-get -y update && apt-get install -y python sudo curl
+RUN apt-get -y update && apt-get install -y python sudo curl git
 RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && python get-pip.py
 RUN pip install --upgrade pip && \
     pip install --no-cache notebook
+
+# Grab OMF
+RUN git clone https://github.com/dpinney/omf.git
 
 # create user with a home directory
 ARG NB_USER
